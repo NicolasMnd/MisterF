@@ -3,7 +3,6 @@
     <output-path>$PROJECT_DIR$/out/artifacts/MisterF_jar</output-path>
     <root id="archive" name="MisterF.jar">
       <element id="module-output" name="MisterF" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../MisterP/out/artifacts/MisterP_jar/MisterP.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

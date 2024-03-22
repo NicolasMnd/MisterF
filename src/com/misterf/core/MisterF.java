@@ -25,12 +25,14 @@ public class MisterF {
         Map<String, String> map = readSplit(delimeter);
         clear();
 
+        // Loop over the entries & replace the specified entry
         for(Map.Entry<String, String> entry : map.entrySet())
 
             if(entry.getKey().toLowerCase().strip().equals(key))
 
                 map.replace(key, replace);
 
+        // Overwrite the whole file with the modified map
         overwrite(mend(delimeter, map));
 
     }
