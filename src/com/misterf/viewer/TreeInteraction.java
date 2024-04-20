@@ -89,7 +89,7 @@ public class TreeInteraction {
      * @param number an index in the list. Invalid indices will always return null
      * @return a file from the {@link TreeInteraction#files} list, or null
      */
-    public File getFile(int number) {
+    File getFile(int number) {
         if(isNumberValid(number)) return this.files.get(number);
         return null;
     }
@@ -98,7 +98,7 @@ public class TreeInteraction {
      * Returns the string that represents the tree
      * @return a string that displays the tree
      */
-    public List<String> getDisplay() {
+    List<String> getDisplay() {
         this.visual = new ArrayList<>();
         compose();
         return this.visual;
@@ -134,7 +134,7 @@ public class TreeInteraction {
      * Opens a folder in {@link TreeInteraction#openfiles}. If the index is not a directory, nothing will happen.
      * @param index the index in the list of files that should be opened
      */
-    public void openFolder(int index) {
+    void openFolder(int index) {
         if(this.files.get(index).isDirectory()) {
             this.openfiles.add(this.files.get(index));
             this.compose();
@@ -145,7 +145,7 @@ public class TreeInteraction {
      * Closes a folder
      * @param index the index in the {@link TreeInteraction#files} that should be closed
      */
-    public void closeFolder(int index) {
+    void closeFolder(int index) {
         if(this.files.size() >= index && files.get(index) != null && files.get(index).isDirectory() && openfiles.contains(files.get(index))) {
             this.openfiles.remove(files.get(index));
             this.compose();

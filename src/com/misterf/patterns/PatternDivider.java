@@ -43,7 +43,7 @@ public class PatternDivider extends PatternObject {
             if(getDelimeters().contains(this.getRepresentation().substring(i, i+1))) {
 
                 // If this class doesn't have a divider yet, we assign it here
-                if(this.divider.equals(""))
+                if(this.divider.isEmpty())
                     this.divider = this.getRepresentation().substring(i, i+1);
 
                 // Case 1: the divider is the same as the divider of this class
@@ -61,7 +61,7 @@ public class PatternDivider extends PatternObject {
                     patternObjectList.add(
                             new PatternDivider(
                                     // Representation from our last string up to the end
-                                    this.getRepresentation().substring(snipped, this.getRepresentation().length()),
+                                    this.getRepresentation().substring(snipped),
                                     this.getRepresentation().substring(i, i + 1),
                                     getDelimeters()
                             )
@@ -78,7 +78,7 @@ public class PatternDivider extends PatternObject {
             if(i == this.getRepresentation().length() - 1)
                 patternObjectList.add(
                         new PatternString(
-                                this.getRepresentation().substring(snipped, this.getRepresentation().length()),
+                                this.getRepresentation().substring(snipped),
                                 getDelimeters()
                         )
                 );
@@ -105,7 +105,12 @@ public class PatternDivider extends PatternObject {
     }
 
     @Override
-    public void modify(String s) {
+    public void modify(int part, String s) {
+        if(children.size() <= part) {
+            this.children.get(part).modify(0, s);
+        } else {
+
+        }
         return;
     }
 

@@ -25,7 +25,7 @@ public class PatternString extends PatternObject {
     }
 
     @Override
-    public void modify(String s) {
+    public void modify(int part, String s) {
         this.representation = s;
     }
 

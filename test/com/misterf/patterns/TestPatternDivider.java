@@ -55,7 +55,7 @@ public class TestPatternDivider {
         String abc = "abc/def:ghi";
         PatternObject div = PatternObject.getPatternHelper(abc, "/:");
 
-        div.getChildren().get(0).modify("piemel");
+        div.getChildren().get(0).modify(0,"piemel");
         assertEquals(div.construct(), "piemel/def:ghi");
 
     }

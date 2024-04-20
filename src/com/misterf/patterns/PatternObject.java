@@ -36,7 +36,7 @@ public abstract class PatternObject {
 
     public abstract String construct();
 
-    public abstract void modify(String s);
+    public abstract void modify(int part, String s);
 
     /**
      * Returns the string of this object
