@@ -34,7 +34,7 @@ public class TreeInteraction {
      *                "p": goes to the previous page, shows previous files. Changes the {@link TreeInteraction#start} with {@link TreeInteraction#listLength}
      * @param number the number that goes with the command.
      */
-    public void command(String command, int number) {
+    public File command(String command, int number) {
 
         command = command.toUpperCase().strip();
 
@@ -80,7 +80,11 @@ public class TreeInteraction {
                 break;
         }
 
+        if(command.isEmpty() && number <= listLength && number >= 1)
+            return getFile(number);
+
         compose();
+        return null;
 
     }
 
