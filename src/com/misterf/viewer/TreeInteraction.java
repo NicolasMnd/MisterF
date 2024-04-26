@@ -83,6 +83,7 @@ public class TreeInteraction {
         if(command.isEmpty() && number <= listLength && number >= 1)
             return getFile(number);
 
+
         compose();
         return null;
 

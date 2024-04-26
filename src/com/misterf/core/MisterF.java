@@ -70,7 +70,8 @@ public class MisterF {
             List<String> arr = new LinkedList<String>(Arrays.asList(line.split(delimeter)));
             String beg = arr.remove(0);
 
-            if(arr.size() >= 2)
+            // We removed 1 from the array, so if it is still 1, then there were 2 or more arguments.
+            if(arr.size() >= 1)
                 map.put(beg, mend(delimeter, arr));
             else map.put(arr.get(0), null);
 

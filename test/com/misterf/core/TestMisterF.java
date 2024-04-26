@@ -48,6 +48,29 @@ public class TestMisterF {
     }
 
     @Test
+    public void testTwoArgsPerLine() {
+
+        write(path, "hello1/hello2\nh1/h2");
+        List<String> lines = fileReader.read();
+
+        assertEquals(lines.size(),2);
+        Map<String, String> str = fileReader.readSplit("/");
+
+        Set<Map.Entry<String, String>> entrySet = str.entrySet();
+        List<Map.Entry<String, String>> entryList = new ArrayList<>(entrySet);
+
+        for(int i = 0; i < entryList.size(); i++) {
+            Map.Entry<String, String> entry = entryList.get(i);
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            if(i == 0) assertEquals(value, "hello2");
+            if(i == 1) assertEquals(value, "h2");
+        }
+
+    }
+
+    @Test
     public void testReplace() {
 
         Map<String, String> str = fileReader.readSplit("/");
