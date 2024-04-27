@@ -150,7 +150,7 @@ public class MisterF {
         try {
 
             FileWriter writer = new FileWriter(this.file, true);
-            writer.write(line);
+            writer.write("\n" + line);
             writer.close();
 
         } catch(IOException io) {
