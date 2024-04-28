@@ -104,6 +104,14 @@ public class PatternDivider extends PatternObject {
         return construct;
     }
 
+    public List<String> getStrings() {
+        List<String> list = new ArrayList<>();
+        for(PatternObject o : getChildren()) {
+            list.addAll(o.getStrings());
+        }
+        return list;
+    }
+
     @Override
     public void modify(int part, String s) {
         if(children.size() <= part) {

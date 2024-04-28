@@ -60,6 +60,17 @@ public class TestPatternDivider {
 
     }
 
+    @Test
+    public void testGetChildren() {
+
+        String abc = "test/a,b,c";
+        PatternObject div = PatternObject.getPatternHelper(abc, "/,");
+
+        assertEquals(div.getStrings().get(0), "test");
+        assertEquals(div.getStrings().get(1), "a");
+
+    }
+
 
 
 }

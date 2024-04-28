@@ -25,6 +25,11 @@ public class PatternString extends PatternObject {
     }
 
     @Override
+    public List<String> getStrings() {
+        return List.of(this.representation);
+    }
+
+    @Override
     public void modify(int part, String s) {
         this.representation = s;
     }

@@ -65,4 +65,6 @@ public abstract class PatternObject {
         else return divider;
     }
 
+    public abstract List<String> getStrings();
+
 }
