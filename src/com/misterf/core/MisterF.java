@@ -12,7 +12,7 @@ public class MisterF {
         this.file = new File(path);
         this.path = path;
     }
-
+    
     /**
      * Replaces an entry in the file
      * @param delimeter the delimeter used to split the entry from key an value
