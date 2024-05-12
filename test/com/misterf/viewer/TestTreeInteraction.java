@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -30,7 +31,7 @@ public class TestTreeInteraction {
     public void testList() {
 
         this.interaction.compose();
-        assertEquals(interaction.getFiles().size(), 2+1);
+        assertEquals(interaction.getFiles().size(), 1);
         assertEquals(interaction.getOpenfiles().size(), 0);
 
         this.interaction.openFolder(1);
@@ -52,6 +53,7 @@ public class TestTreeInteraction {
     public void testCommands() {
 
         // Opening files
+        this.interaction.compose();
         assertEquals(interaction.getOpenfiles().size(), 0);
         assertEquals(interaction.getFiles().size(), 2+1);
         this.interaction.command("o", 1);
@@ -73,19 +75,19 @@ public class TestTreeInteraction {
         // Open file in open file
         this.interaction.command("o", 1);
         assertEquals(interaction.getOpenfiles().size(), 1);
-        assertEquals(interaction.getFiles().size(), 4+1);
+        assertEquals(interaction.getFiles().size(), 3);
         this.interaction.command("o", 1); // open file in openfiles
         assertEquals(interaction.getOpenfiles().size(), 1); // do nothing to openfiles array
         this.interaction.command("o", 2); // open non directory
-        assertEquals(interaction.getOpenfiles().size(), 1); // no change
+        assertEquals(interaction.getOpenfiles().size(), 2); // no change
         this.interaction.command("o", 3); // open directory in already open directory
-        assertEquals(interaction.getOpenfiles().size(), 0); // focus on new file: no openfiles anymore
-        assertEquals(interaction.getFiles().size(), 1+1); // amount of files in sub2 = 1
+        assertEquals(interaction.getOpenfiles().size(), 2); // focus on new file: no openfiles anymore
+        assertEquals(interaction.getFiles().size(), 4); // amount of files in sub2 = 1
 
         // Go back to start:
         this.interaction.command("b", 1);
         this.interaction.command("b", 1);
-        assertEquals(interaction.getOpenfiles().size(), 0);
+        assertEquals(interaction.getOpenfiles().size(), 2);
 
 
 

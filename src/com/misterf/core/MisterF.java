@@ -73,7 +73,7 @@ public class MisterF {
             // We removed 1 from the array, so if it is still 1, then there were 2 or more arguments.
             if(arr.size() >= 1)
                 map.put(beg, mend(delimeter, arr));
-            else map.put(arr.get(0), null);
+            else map.put(beg, null);
 
         }
 

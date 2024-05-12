@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestMisterF {
 
@@ -21,6 +22,7 @@ public class TestMisterF {
     @BeforeEach
     public void setVars() {
         path = "res/test.txt";
+        write(path, "hello1/hello2/hello3\nh1/h2/h3");
         fileReader = new MisterF(path);
     }
 
@@ -68,6 +70,23 @@ public class TestMisterF {
             if(i == 1) assertEquals(value, "h2");
         }
 
+    }
+
+    @Test
+    public void readSplitEmpty() {
+        write(path, "hello1/hello2\nh1/");
+        Map<String, String> str = fileReader.readSplit("/");
+
+        Set<Map.Entry<String, String>> entrySet = str.entrySet();
+        List<Map.Entry<String, String>> entryList = new ArrayList<>(entrySet);
+
+        for(int i = 0; i < entryList.size(); i++) {
+            Map.Entry<String, String> entry = entryList.get(i);
+            String value = entry.getValue();
+
+            if(i == 0) assertEquals(value, "hello2");
+            if(i == 1) assertNull(value);
+        }
     }
 
     @Test

@@ -1,25 +1,25 @@
 package com.misterf.viewer;
 
+import java.awt.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TreeInteraction {
 
     private List<File> openfiles, files;
     private File root;
     private int listLength, start;
-    private List<String> visual = new ArrayList<>();
+    protected List<String> visual = new ArrayList<>();
 
-    TreeInteraction(File root, List<File> openfiles, int listLength, int start) {
+    public TreeInteraction(File root, List<File> openfiles, int listLength, int start) {
         this.openfiles = openfiles;
-        this.root = root;
+        this.root = root.getAbsoluteFile();
         this.listLength = listLength;
         this.files = new ArrayList<>();
         this.start = start;
-        compose();
     }
 
     /**
@@ -39,7 +39,16 @@ public class TreeInteraction {
         command = command.toUpperCase().strip();
 
         switch(command) {
+            case "L":
+                try {
+                    if(getFiles().get(number).isFile())
+                        Runtime.getRuntime().exec("explorer.exe " + getFiles().get(number).getParentFile().getAbsolutePath());
+                    else
+                        Runtime.getRuntime().exec("explorer.exe " + getFiles().get(number).getAbsolutePath());
+                } catch(Exception e) {
 
+                }
+                break;
             // Show next page
             case "N":
                 if(this.files.size()-start > listLength)
@@ -68,12 +77,14 @@ public class TreeInteraction {
                 break;
             // Close file
             case "C":
-                if(openfiles.contains(files.get(number)))
+                if(isNumberValid(number) && openfiles.contains(files.get(number)))
                     openfiles.remove(files.get(number));
                 break;
             // Go back to previous file
-            case "B":
+            case "R":
+                String path = root.getAbsolutePath();
                 this.root = this.root.getParentFile();
+                if(path.equals(root.getAbsolutePath() + "\\.")) root = this.root.getParentFile();
                 start = 0;
                 files.clear();
                 openfiles.clear();
@@ -122,8 +133,10 @@ public class TreeInteraction {
      * @param indent the amount of spaces between the numbering & naming
      */
     public void printDisplay(String sideIndent, String indent) {
+        compose();
         String extraIndent = "";
 
+        System.out.println(sideIndent + "# " + getRoot().getName());
         List<String> visuals = getDisplay();
         for(int i = 0; i < visuals.size(); i++) {
 
@@ -160,7 +173,7 @@ public class TreeInteraction {
     /**
      * Creates the tree visualization in a string with current class fields
      */
-    void compose() {
+     protected void compose() {
         // Create new file array & fill with files in the root directory
         this.files = new ArrayList<>();
         File[] inDirectory = this.root.listFiles();
@@ -199,12 +212,10 @@ public class TreeInteraction {
 
             if(file.isDirectory() && openfiles.contains(file))
                 listed = handleOpenFolder(file, i, start);
-            else
-                formatFiles(file, " ");
-
-
-            if(!this.files.contains(file))
+            else if(shouldAddFile(file) && !this.files.contains(file)) {
                 this.files.add(file);
+                formatFiles(file, " ");
+            }
 
             fileIndex++;
 
@@ -214,6 +225,15 @@ public class TreeInteraction {
             this.visual.add("        ...");
         }
 
+    }
+
+    /**
+     * Determines if an entry should be added to the list of displayed items
+     * @param file the file we want to inspect
+     * @return boolean determining if that file should be added to the list
+     */
+    protected boolean shouldAddFile(File file) {
+         return true;
     }
 
     /**
@@ -256,13 +276,18 @@ public class TreeInteraction {
      * Used to print files with correct offset.
      * @param file the file that should be printed
      */
-    private void formatFiles(File file, String indent) {
+    protected void formatFiles(File file, String indent) {
         if(file.isFile())
             visual.add(indent + "- " + file.getName());
         else if(file.isDirectory())
             visual.add(indent + "+ " + file.getName());
     }
 
+    /**
+     * Determines if the number given is valid in the {@link TreeInteraction#files} array.
+     * @param number the number that will be checked
+     * @return a boolean determining if the number is in bounds of indices of {@link TreeInteraction#files}
+     */
     private boolean isNumberValid(int number) {
         return number > 0 && number >= start+1 && number < start+1+listLength;
     }
@@ -291,12 +316,28 @@ public class TreeInteraction {
         return this.root;
     }
 
+    /**
+     * Returns a list of opened files
+     * @return list of File objects that are opened
+     */
     List<File> getOpenfiles() {
         return this.openfiles;
     }
 
-    List<File> getFiles() {
+    /**
+     * Returns a list of {@link File}s that are in the {@link TreeInteraction#root}
+     * @return a List of files in the directory of {@link TreeInteraction#root}
+     */
+    protected List<File> getFiles() {
         return this.files;
+    }
+
+    /**
+     * Returns the start index for list printing
+     * @return the start index
+     */
+    protected int getStart() {
+        return this.start;
     }
 
 }
