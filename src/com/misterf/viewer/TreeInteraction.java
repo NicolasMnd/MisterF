@@ -288,7 +288,7 @@ public class TreeInteraction {
      * @param number the number that will be checked
      * @return a boolean determining if the number is in bounds of indices of {@link TreeInteraction#files}
      */
-    private boolean isNumberValid(int number) {
+    protected boolean isNumberValid(int number) {
         return number > 0 && number >= start+1 && number < start+1+listLength;
     }
 
