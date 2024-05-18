@@ -37,6 +37,7 @@ public class TreeInteraction {
     public File command(String command, int number) {
 
         command = command.toUpperCase().strip();
+        number += start;
 
         switch(command) {
             case "L":
@@ -92,7 +93,7 @@ public class TreeInteraction {
         }
 
         if(command.isEmpty() && number <= listLength && number >= 1)
-            return getFile(number);
+            return getFile(number + start);
 
 
         compose();
@@ -289,7 +290,7 @@ public class TreeInteraction {
      * @return a boolean determining if the number is in bounds of indices of {@link TreeInteraction#files}
      */
     protected boolean isNumberValid(int number) {
-        return number > 0 && number >= start+1 && number < start+1+listLength;
+        return number >= 1 && number < listLength;
     }
 
     /**
