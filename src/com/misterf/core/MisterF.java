@@ -28,7 +28,7 @@ public class MisterF {
         // Loop over the entries & replace the specified entry
         for(Map.Entry<String, String> entry : map.entrySet())
 
-            if(entry.getKey().toLowerCase().strip().equals(key))
+            if(entry.getKey().toLowerCase().strip().equals(key.toLowerCase()))
 
                 map.replace(key, replace);
 
