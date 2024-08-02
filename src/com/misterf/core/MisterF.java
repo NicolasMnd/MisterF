@@ -29,7 +29,6 @@ public class MisterF {
         for(Map.Entry<String, String> entry : map.entrySet())
 
             if(entry.getKey().toLowerCase().strip().equals(key.toLowerCase()))
-
                 map.replace(key, replace);
 
         // Overwrite the whole file with the modified map
@@ -48,7 +47,7 @@ public class MisterF {
         Map<String, String> map = readSplit(delimeter);
 
         for(Map.Entry<String, String> entry : map.entrySet())
-            if(entry.getKey().toLowerCase().strip().equals(key))
+            if(entry.getKey().toLowerCase().strip().equals(key.toLowerCase()))
                 return entry.getValue();
 
         return null;
