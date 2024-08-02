@@ -1,4 +1,4 @@
-# MisterF
+## MisterF
 
 MisterF stands for mister file. This library offers execution of low level structuring and retrieval of data in text files. Simple data storage for terminal applications can 
 be executed swiftly by prodiving following functionality:
