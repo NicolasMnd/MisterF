@@ -35,9 +35,6 @@ public class TreeInteraction {
      * @param number the number that goes with the command.
      */
     public File command(String command, int number) {
-       // System.out.println("Trying to search for number: " + number + " -> but is + (" + start + ") so: " + (number+start));
-        //System.out.println("List length: " + files.size());
-
         command = command.toUpperCase().strip();
         number += start;
 
@@ -66,7 +63,6 @@ public class TreeInteraction {
                 break;
             // Focus on folder
             case "F":
-                System.out.println("Thenumber: " + isNumberValid(number) + ", and files: " + files.get(number) + " nul?? : " + files.get(number).isDirectory());
                 if(isNumberValid(number-start) && files.get(number).isDirectory()) {
                     this.root = files.get(number);
                     this.openfiles.clear();
