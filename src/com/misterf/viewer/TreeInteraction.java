@@ -35,17 +35,20 @@ public class TreeInteraction {
      * @param number the number that goes with the command.
      */
     public File command(String command, int number) {
+       // System.out.println("Trying to search for number: " + number + " -> but is + (" + start + ") so: " + (number+start));
+        //System.out.println("List length: " + files.size());
 
         command = command.toUpperCase().strip();
         number += start;
 
         switch(command) {
             case "L":
+                Desktop dt = Desktop.getDesktop();
                 try {
                     if(getFiles().get(number).isFile())
-                        Runtime.getRuntime().exec("explorer.exe " + getFiles().get(number).getParentFile().getAbsolutePath());
+                        dt.open(getFiles().get(number));
                     else
-                        Runtime.getRuntime().exec("explorer.exe " + getFiles().get(number).getAbsolutePath());
+                        dt.open(getFiles().get(number).getParentFile());
                 } catch(Exception e) {
 
                 }
@@ -63,22 +66,24 @@ public class TreeInteraction {
                 break;
             // Focus on folder
             case "F":
-                if(isNumberValid(number) && files.get(number).isDirectory()) {
+                System.out.println("Thenumber: " + isNumberValid(number) + ", and files: " + files.get(number) + " nul?? : " + files.get(number).isDirectory());
+                if(isNumberValid(number-start) && files.get(number).isDirectory()) {
                     this.root = files.get(number);
                     this.openfiles.clear();
                     this.start = 0;
+                    System.out.println("We perform the new root set");
                 }
                 break;
             // Open folder
             case "O":
-                if(isNumberValid(number) && !openfiles.contains(files.get(number).getParentFile()) && !openfiles.contains(files.get(number)))
+                if(isNumberValid(number-start) && !openfiles.contains(files.get(number).getParentFile()) && !openfiles.contains(files.get(number)))
                     openfiles.add(files.get(number));
-                else if(isNumberValid(number) && openfiles.contains(files.get(number).getParentFile()))
+                else if(isNumberValid(number-start) && openfiles.contains(files.get(number).getParentFile()))
                     command("f", number);
                 break;
             // Close file
             case "C":
-                if(isNumberValid(number) && openfiles.contains(files.get(number)))
+                if(isNumberValid(number-start) && openfiles.contains(files.get(number)))
                     openfiles.remove(files.get(number));
                 break;
             // Go back to previous file
@@ -290,6 +295,7 @@ public class TreeInteraction {
      * @return a boolean determining if the number is in bounds of indices of {@link TreeInteraction#files}
      */
     protected boolean isNumberValid(int number) {
+        System.out.println("Number: 1 <= " + number + " < " + listLength + " so it is : " + (number >= 1 && number < listLength));
         return number >= 1 && number < listLength;
     }
 
