@@ -93,8 +93,9 @@ public class TreeInteraction {
                 break;
         }
 
-        if(command.isEmpty() && number <= listLength && number >= 1)
-            return getFile(number + start);
+        if(command.isEmpty() && number-start <= listLength && number >= 1) {
+            return files.get(number);
+        }
 
 
         compose();
@@ -291,7 +292,6 @@ public class TreeInteraction {
      * @return a boolean determining if the number is in bounds of indices of {@link TreeInteraction#files}
      */
     protected boolean isNumberValid(int number) {
-        System.out.println("Number: 1 <= " + number + " < " + listLength + " so it is : " + (number >= 1 && number < listLength));
         return number >= 1 && number < listLength;
     }
 
